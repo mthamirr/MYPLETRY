@@ -1,8 +1,21 @@
 import React, { useState } from 'react'
+import NavigationInterceptor from '../../NavigationInterceptor' // ADD THIS LINE
 import { Users, Plus, Search, Filter, MapPin, Clock, BookOpen, Heart, Star, MessageCircle, GraduationCap } from 'lucide-react'
 import MatchingList from './components/MatchingList'
 import CreateMatching from './components/CreateMatching'
 import MatchingDetail from './components/MatchingDetail'
+
+// ADD THIS INTERFACE
+interface AppProps {
+  navigationHandler?: {
+    goToAdd2Cart: () => void
+    goToCounselling: () => void
+    goToHome: () => void
+    goToMatching: () => void
+    goToProfile: () => void
+    goToMessages: () => void
+  }
+}
 
 interface Matching {
   id: string
@@ -22,7 +35,8 @@ interface Matching {
   genderPreference: 'mixed' | 'male-only' | 'female-only'
 }
 
-function App() {
+// MODIFY FUNCTION SIGNATURE
+function App(props: AppProps) {  // ADD props: AppProps
   const [currentView, setCurrentView] = useState<'list' | 'create' | 'detail'>('list')
   const [selectedMatching, setSelectedMatching] = useState<Matching | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
@@ -175,6 +189,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-cloud-dancer font-pixel">
+      <NavigationInterceptor navigationHandler={props.navigationHandler} />
       {/* Header */}
       <header className="bg-darkest-hour text-cloud-dancer border-b-4 border-sun-glare">
         <div className="max-w-6xl mx-auto px-4 py-6">
@@ -189,15 +204,25 @@ function App() {
               </div>
             </div>
             
-            {currentView === 'list' && (
+            <div className="flex items-center space-x-4">
+              {/* Back to Home Button */}
               <button
-                onClick={handleCreateMatching}
-                className="bg-exuberant-orange hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-bold tracking-wide transition-all duration-200 transform hover:scale-105 flex items-center space-x-2 border-2 border-darkest-hour shadow-lg"
+                onClick={() => props.navigationHandler?.goToHome?.()}
+                className="bg-blue-violet hover:bg-purple-600 text-white px-4 py-2 rounded-lg font-bold tracking-wide transition-all duration-200 border-2 border-darkest-hour"
               >
-                <Plus className="w-5 h-5" />
-                <span>CREATE EVENT</span>
+                HOME
               </button>
-            )}
+              
+              {currentView === 'list' && (
+                <button
+                  onClick={handleCreateMatching}
+                  className="bg-exuberant-orange hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-bold tracking-wide transition-all duration-200 transform hover:scale-105 flex items-center space-x-2 border-2 border-darkest-hour shadow-lg"
+                >
+                  <Plus className="w-5 h-5" />
+                  <span>CREATE EVENT</span>
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </header>
@@ -277,7 +302,7 @@ function App() {
         )}
       </main>
 
-      {/* Footer */}
+      {/* Footer with Bottom Navigation */}
       <footer className="bg-darkest-hour text-cloud-dancer mt-16">
         <div className="max-w-6xl mx-auto px-4 py-8">
           <div className="text-center">
@@ -293,6 +318,53 @@ function App() {
             </div>
             <div className="mt-2 text-xs text-gray-400">
               🇲🇾 Malaysian Students • 🇰🇷 Seoul Universities • 🤝 Building Connections
+            </div>
+            
+            {/* Bottom Navigation Icons */}
+            <div className="flex justify-center mt-6 space-x-6">
+              {/* Add2Cart */}
+              <button
+                onClick={() => props.navigationHandler?.goToAdd2Cart?.()}
+                className="w-12 h-12 bg-sun-glare rounded-lg flex items-center justify-center hover:bg-exuberant-orange transition-colors border-2 border-cloud-dancer"
+                title="Add2Cart"
+              >
+                🛒
+              </button>
+              
+              {/* Counselling */}
+              <button
+                onClick={() => props.navigationHandler?.goToCounselling?.()}
+                className="w-12 h-12 bg-sun-glare rounded-lg flex items-center justify-center hover:bg-exuberant-orange transition-colors border-2 border-cloud-dancer"
+                title="Counselling"
+              >
+                💬
+              </button>
+              
+              {/* Home */}
+              <button
+                onClick={() => props.navigationHandler?.goToHome?.()}
+                className="w-12 h-12 bg-exuberant-orange rounded-lg flex items-center justify-center hover:bg-vibrant-pink transition-colors border-2 border-cloud-dancer"
+                title="Home"
+              >
+                🏠
+              </button>
+              
+              {/* Matching (Current) */}
+              <button
+                className="w-12 h-12 bg-blue-violet rounded-lg flex items-center justify-center border-2 border-cloud-dancer"
+                title="Matching (Current)"
+              >
+                ❤️
+              </button>
+              
+              {/* Profile */}
+              <button
+                onClick={() => props.navigationHandler?.goToProfile?.()}
+                className="w-12 h-12 bg-sun-glare rounded-lg flex items-center justify-center hover:bg-exuberant-orange transition-colors border-2 border-cloud-dancer"
+                title="Profile"
+              >
+                👤
+              </button>
             </div>
           </div>
         </div>

@@ -4,10 +4,23 @@ import { ShoppingCart, Users, Home, MessageCircle, User } from 'lucide-react'
 interface BottomNavigationProps {
   activeTab: string
   onTabClick?: (tabId: string) => void
-  onHomeClick?: () => void // NEW: Home navigation handler
+  onHomeClick?: () => void
+  // NEW: Add external navigation handlers
+  onCartClick?: () => void
+  onMatchClick?: () => void
+  onCounselingClick?: () => void
+  onProfileClick?: () => void
 }
 
-const BottomNavigation: React.FC<BottomNavigationProps> = ({ activeTab, onTabClick, onHomeClick }) => {
+const BottomNavigation: React.FC<BottomNavigationProps> = ({ 
+  activeTab, 
+  onTabClick, 
+  onHomeClick,
+  onCartClick,
+  onMatchClick, 
+  onCounselingClick,
+  onProfileClick
+}) => {
   const tabs = [
     { id: 'cart', label: 'ADD2CART', icon: ShoppingCart },
     { id: 'match', label: 'MATCH', icon: Users },
@@ -17,8 +30,16 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({ activeTab, onTabCli
   ]
 
   const handleTabClick = (tabId: string) => {
-    if (tabId === 'home' && onHomeClick) {
-      // UPDATED: Use dedicated home handler for responsive navigation
+    // REDIRECT TO EXTERNAL COMPONENTS
+    if (tabId === 'cart' && onCartClick) {
+      onCartClick()
+    } else if (tabId === 'match' && onMatchClick) {
+      onMatchClick()
+    } else if (tabId === 'counseling' && onCounselingClick) {
+      onCounselingClick()
+    } else if (tabId === 'profile' && onProfileClick) {
+      onProfileClick()
+    } else if (tabId === 'home' && onHomeClick) {
       onHomeClick()
     } else if (onTabClick) {
       onTabClick(tabId)
@@ -41,7 +62,7 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({ activeTab, onTabCli
                   ? 'bg-sun-glare text-darkest-hour' 
                   : 'bg-darkest-hour text-cloud-dancer hover:bg-blue-violet'
               }`}
-              style={{ height: '72px' }} // FIXED HEIGHT FOR ALL TABS
+              style={{ height: '72px' }}
             >
               <IconComponent size={20} className="mb-1" />
               {isActive && (

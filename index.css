@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Your existing CSS from registration and community */
+/* Global styles */
 @layer base {
   body {
     margin: 0;
@@ -12,14 +12,27 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  * {
+    box-sizing: border-box;
+  }
 }
 
-/* Add your pixel font and other styles */
-.pixel-font {
+/* Pixel font */
+.pixel-font, .pixel-text, .pixel-text-lg, .pixel-text-xl {
   font-family: 'Courier New', monospace;
+  font-weight: bold;
 }
 
-/* Your color classes */
+.pixel-text-lg {
+  font-size: 1.125rem;
+}
+
+.pixel-text-xl {
+  font-size: 1.25rem;
+}
+
+/* Color classes */
 .bg-cloud-dancer { background-color: #f5f5f5; }
 .bg-darkest-hour { background-color: #1a1a1a; }
 .bg-sun-glare { background-color: #ffd700; }
@@ -32,3 +45,46 @@
 .text-darkest-hour { color: #1a1a1a; }
 
 .border-darkest-hour { border-color: #1a1a1a; }
+
+/* Pixel borders */
+.pixel-border {
+  border: 4px solid #1a1a1a;
+}
+
+.pixel-border-thin {
+  border: 2px solid #1a1a1a;
+}
+
+.pixel-border-bottom {
+  border-bottom: 4px solid #1a1a1a;
+}
+
+/* Pixel buttons */
+.pixel-btn {
+  border: 4px solid #1a1a1a;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pixel-btn:hover {
+  transform: translateY(-2px);
+}
+
+.pixel-btn-danger {
+  background-color: #ff4500;
+  color: #f5f5f5;
+}
+
+/* Pixel modal */
+.pixel-modal {
+  border: 4px solid #1a1a1a;
+  background-color: #f5f5f5;
+}
+
+/* Safe area */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}

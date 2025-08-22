@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Your existing CSS from registration and community */
+@layer base {
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Add your pixel font and other styles */
+.pixel-font {
+  font-family: 'Courier New', monospace;
+}
+
+/* Your color classes */
+.bg-cloud-dancer { background-color: #f5f5f5; }
+.bg-darkest-hour { background-color: #1a1a1a; }
+.bg-sun-glare { background-color: #ffd700; }
+.bg-blue-violet { background-color: #8a2be2; }
+.bg-exuberant-orange { background-color: #ff4500; }
+.bg-vibrant-pink { background-color: #ff1493; }
+.bg-deep-forest { background-color: #228b22; }
+
+.text-cloud-dancer { color: #f5f5f5; }
+.text-darkest-hour { color: #1a1a1a; }
+
+.border-darkest-hour { border-color: #1a1a1a; }

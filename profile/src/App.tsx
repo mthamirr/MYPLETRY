@@ -1,4 +1,17 @@
 import React, { useState } from 'react'
+import NavigationInterceptor from '../../NavigationInterceptor' // ADD THIS LINE
+
+// ADD THIS INTERFACE
+interface AppProps {
+  navigationHandler?: {
+    goToAdd2Cart: () => void
+    goToCounselling: () => void
+    goToHome: () => void
+    goToMatching: () => void
+    goToProfile: () => void
+    goToMessages: () => void
+  }
+}
 
 interface UserProfile {
   name: string
@@ -28,7 +41,8 @@ interface Message {
 
 type ViewMode = 'profile' | 'my-profile' | 'search-result' | 'not-found' | 'chat-inbox' | 'requests' | 'chingu-list' | 'texting'
 
-function App() {
+// MODIFY FUNCTION SIGNATURE
+function App(props: AppProps) {  // ADD props: AppProps
   const [viewMode, setViewMode] = useState<ViewMode>('my-profile')
   const [searchQuery, setSearchQuery] = useState('')
   const [currentProfile, setCurrentProfile] = useState<string>('nazaratul_azli')
@@ -298,6 +312,7 @@ function App() {
   if (viewMode === 'chat-inbox') {
     return (
       <div className="min-h-screen bg-white font-mono" style={{ maxWidth: '390px', margin: '0 auto' }}>
+        <NavigationInterceptor navigationHandler={props.navigationHandler} />
         <div className="bg-navy p-4 flex items-center justify-between rounded-b-2xl">
           <button onClick={handleBackClick} className="w-8 h-8 relative flex items-center justify-center">
             <div className="w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-r-[8px] border-r-lime"></div>
@@ -338,6 +353,7 @@ function App() {
     
     return (
       <div className="min-h-screen bg-white font-mono flex flex-col" style={{ maxWidth: '390px', margin: '0 auto' }}>
+        <NavigationInterceptor navigationHandler={props.navigationHandler} />
         <div className="bg-navy p-4 flex items-center justify-between rounded-b-2xl">
           <button onClick={handleBackClick} className="w-8 h-8 relative flex items-center justify-center">
             <div className="w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-r-[8px] border-r-lime"></div>
@@ -389,6 +405,7 @@ function App() {
   if (viewMode === 'requests') {
     return (
       <div className="min-h-screen bg-white font-mono" style={{ maxWidth: '390px', margin: '0 auto' }}>
+        <NavigationInterceptor navigationHandler={props.navigationHandler} />
         <div className="bg-navy p-4 flex items-center justify-between rounded-b-2xl">
           <button onClick={handleBackClick} className="w-8 h-8 relative flex items-center justify-center">
             <div className="w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-r-[8px] border-r-lime"></div>
@@ -441,6 +458,7 @@ function App() {
   if (viewMode === 'chingu-list') {
     return (
       <div className="min-h-screen bg-white font-mono" style={{ maxWidth: '390px', margin: '0 auto' }}>
+        <NavigationInterceptor navigationHandler={props.navigationHandler} />
         <div className="bg-navy p-4 flex items-center justify-between rounded-b-2xl">
           <button onClick={handleBackClick} className="w-8 h-8 relative flex items-center justify-center">
             <div className="w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-r-[8px] border-r-lime"></div>
@@ -485,6 +503,7 @@ function App() {
   if (viewMode === 'not-found') {
     return (
       <div className="min-h-screen bg-cream font-mono flex items-center justify-center" style={{ maxWidth: '390px', margin: '0 auto' }}>
+        <NavigationInterceptor navigationHandler={props.navigationHandler} />
         <div className="text-center">
           <h1 className="text-navy font-black text-3xl mb-8">User Not Exist</h1>
           <button 
@@ -505,6 +524,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white font-mono" style={{ maxWidth: '390px', margin: '0 auto' }}>
+      <NavigationInterceptor navigationHandler={props.navigationHandler} />
       {/* Top Header Bar */}
       <div className="bg-navy p-4 flex items-center justify-between rounded-b-2xl">
         {/* Back Button - Arrow */}
@@ -781,7 +801,10 @@ function App() {
       {/* Bottom Navigation Bar */}
       <div className="bg-navy p-4 flex items-center justify-around rounded-t-2xl">
         {/* Trolley/Cart Icon */}
-        <button className="w-8 h-8 relative flex items-center justify-center">
+        <button 
+          onClick={() => props.navigationHandler?.goToAdd2Cart?.()}
+          className="w-8 h-8 relative flex items-center justify-center"
+        >
           <div className="w-6 h-5 bg-lime"></div>
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-1 bg-lime"></div>
           <div className="absolute -bottom-1 left-1.5 w-1.5 h-1.5 bg-lime rounded-full"></div>
@@ -789,7 +812,10 @@ function App() {
         </button>
         
         {/* Two Persons Icon */}
-        <button className="w-8 h-8 relative flex items-center justify-center">
+        <button 
+          onClick={() => props.navigationHandler?.goToCounselling?.()}
+          className="w-8 h-8 relative flex items-center justify-center"
+        >
           <div className="absolute left-0 w-3 h-3 bg-lime rounded-full"></div>
           <div className="absolute left-0 bottom-0 w-4 h-2.5 bg-lime rounded-t-full"></div>
           <div className="absolute right-0 top-1 w-3 h-3 bg-lime rounded-full"></div>
@@ -797,14 +823,20 @@ function App() {
         </button>
         
         {/* Home Icon - With Contrast (darker/highlighted) */}
-        <button className="w-10 h-10 relative flex items-center justify-center bg-lime/20 rounded-lg">
+        <button 
+          onClick={() => props.navigationHandler?.goToHome?.()}
+          className="w-10 h-10 relative flex items-center justify-center bg-lime/20 rounded-lg"
+        >
           <div className="w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-b-[14px] border-b-yellow"></div>
           <div className="absolute bottom-1 w-5 h-3 bg-yellow"></div>
           <div className="absolute bottom-2 w-2 h-2 bg-navy"></div>
         </button>
         
         {/* Chat Bubble Icon */}
-        <button className="w-8 h-8 relative flex items-center justify-center">
+        <button 
+          onClick={() => props.navigationHandler?.goToMatching?.()}
+          className="w-8 h-8 relative flex items-center justify-center"
+        >
           <div className="w-7 h-5 bg-lime rounded-lg"></div>
           <div className="absolute bottom-0 left-2 w-0 h-0 border-l-[3px] border-l-transparent border-r-[3px] border-r-transparent border-t-[4px] border-t-lime"></div>
         </button>

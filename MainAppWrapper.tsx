@@ -2,9 +2,9 @@
 import React, { useState } from 'react'
 
 // Import all your existing apps - ADJUST THESE PATHS TO MATCH YOUR FOLDER STRUCTURE
-import RegistrationCommunityApp from './registration-and-community/src/App'
-import MatchingApp from './matching/src/App'
-import MessagesApp from './messages/src/App'
+import RegistrationCommunityApp from '../registration and community/src/App'
+import MatchingApp from '../matching section/src/App'
+import MessagesApp from '../messages section/src/App'
 import ProfileApp from './profile/src/App'
 import Add2CartApp from './add2cart/src/App'
 import CounsellingApp from './counselling/src/App'

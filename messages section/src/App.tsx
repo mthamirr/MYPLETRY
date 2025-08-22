@@ -1,8 +1,21 @@
 import React, { useState } from 'react'
+import NavigationInterceptor from '../../NavigationInterceptor' // ADD THIS LINE
 import { MessageSquare, Users, Plus, Search, Send, MoreVertical, UserPlus } from 'lucide-react'
 import ChatList from './components/ChatList'
 import ChatWindow from './components/ChatWindow'
 import Header from './components/Header'
+
+// ADD THIS INTERFACE
+interface AppProps {
+  navigationHandler?: {
+    goToAdd2Cart: () => void
+    goToCounselling: () => void
+    goToHome: () => void
+    goToMatching: () => void
+    goToProfile: () => void
+    goToMessages: () => void
+  }
+}
 
 interface Chat {
   id: string
@@ -153,7 +166,8 @@ const initialMessages: { [chatId: string]: Message[] } = {
   ]
 }
 
-function App() {
+// MODIFY FUNCTION SIGNATURE
+function App(props: AppProps) {  // ADD props: AppProps
   const [selectedChat, setSelectedChat] = useState<Chat | null>(mockChats[0])
   const [activeTab, setActiveTab] = useState<'friends' | 'matching' | 'add-contact'>('friends')
   const [searchQuery, setSearchQuery] = useState('')
@@ -243,6 +257,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-cloud-dancer font-pixel">
+      <NavigationInterceptor navigationHandler={props.navigationHandler} />
       {/* Gameboy-style container */}
       <div className="max-w-6xl mx-auto bg-darkest-hour p-6 min-h-screen">
         <Header />
@@ -337,14 +352,33 @@ function App() {
           </div>
         </div>
 
-        {/* Bottom navigation icons (gameboy style) */}
+        {/* Bottom navigation icons (gameboy style) - MODIFIED TO USE NAVIGATION HANDLERS */}
         <div className="flex justify-center mt-6 gap-4">
-          {[...Array(5)].map((_, i) => (
-            <div
-              key={i}
-              className="w-8 h-8 bg-sun-glare rounded-full border-2 border-darkest-hour cursor-pointer hover:bg-exuberant-orange transition-colors"
-            />
-          ))}
+          {/* Add2Cart */}
+          <div
+            onClick={() => props.navigationHandler?.goToAdd2Cart?.()}
+            className="w-8 h-8 bg-sun-glare rounded-full border-2 border-darkest-hour cursor-pointer hover:bg-exuberant-orange transition-colors"
+          />
+          {/* Counselling */}
+          <div
+            onClick={() => props.navigationHandler?.goToCounselling?.()}
+            className="w-8 h-8 bg-sun-glare rounded-full border-2 border-darkest-hour cursor-pointer hover:bg-exuberant-orange transition-colors"
+          />
+          {/* Home */}
+          <div
+            onClick={() => props.navigationHandler?.goToHome?.()}
+            className="w-8 h-8 bg-exuberant-orange rounded-full border-2 border-darkest-hour cursor-pointer hover:bg-vibrant-pink transition-colors"
+          />
+          {/* Matching */}
+          <div
+            onClick={() => props.navigationHandler?.goToMatching?.()}
+            className="w-8 h-8 bg-sun-glare rounded-full border-2 border-darkest-hour cursor-pointer hover:bg-exuberant-orange transition-colors"
+          />
+          {/* Profile */}
+          <div
+            onClick={() => props.navigationHandler?.goToProfile?.()}
+            className="w-8 h-8 bg-sun-glare rounded-full border-2 border-darkest-hour cursor-pointer hover:bg-exuberant-orange transition-colors"
+          />
         </div>
       </div>
     </div>

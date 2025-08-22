@@ -2,8 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Global styles */
+/* Import fonts from all apps */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+/* Global base styles */
 @layer base {
+  * {
+    box-sizing: border-box;
+  }
+
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,15 +19,88 @@
       sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-
-  * {
-    box-sizing: border-box;
+    background-color: #f5f5f5;
   }
 }
 
-/* Pixel font */
-.pixel-font, .pixel-text, .pixel-text-lg, .pixel-text-xl {
+/* =================================================================== */
+/* PROFILE APP STYLES */
+/* =================================================================== */
+
+/* Override all text to be bold and pixelated for profile */
+.profile-app * {
+  font-family: 'Press Start 2P', 'Courier New', monospace !important;
+  font-weight: 900 !important;
+  -webkit-font-smoothing: none !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  image-rendering: pixelated !important;
+  image-rendering: -moz-crisp-edges !important;
+  image-rendering: crisp-edges !important;
+  text-rendering: optimizeSpeed !important;
+}
+
+/* Profile custom colors */
+.bg-navy { background-color: #1a2b4a; }
+.bg-cream { background-color: #f5f5dc; }
+.bg-lime { background-color: #b9ff00; }
+.bg-green { background-color: #7ac943; }
+.bg-orange { background-color: #ff6600; }
+.bg-yellow { background-color: #ffcc00; }
+.bg-teal { background-color: #009999; }
+.bg-purple { background-color: #8e3f8e; }
+.bg-cyan { background-color: #0097b2; }
+.bg-dark-teal { background-color: #006d70; }
+
+.text-navy { color: #1a2b4a; }
+.text-lime { color: #b9ff00; }
+.text-green { color: #7ac943; }
+.text-yellow { color: #ffcc00; }
+
+.border-lime { border-color: #b9ff00; }
+.border-yellow { border-color: #ffcc00; }
+.border-navy { border-color: #1a2b4a; }
+.border-green { border-color: #7ac943; }
+.border-3 { border-width: 3px; }
+
+/* =================================================================== */
+/* COUNSELLING ADD2CART APP STYLES */
+/* =================================================================== */
+
+.counselling-app *, .add2cart-app * {
+  font-family: 'Orbitron', monospace;
+}
+
+.pixel-font {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* Pantone color utilities */
+.bg-pantone-sun-glare { background-color: #C4D600; }
+.bg-pantone-exuberant-orange { background-color: #FF5722; }
+.bg-pantone-blue-violet { background-color: #4338CA; }
+.bg-pantone-cloud-dancer { background-color: #F5F5F5; }
+.bg-pantone-darkest-hour { background-color: #1A1A1A; }
+
+.text-pantone-sun-glare { color: #C4D600; }
+.text-pantone-exuberant-orange { color: #FF5722; }
+.text-pantone-blue-violet { color: #4338CA; }
+.text-pantone-cloud-dancer { color: #F5F5F5; }
+.text-pantone-darkest-hour { color: #1A1A1A; }
+
+.border-pantone-sun-glare { border-color: #C4D600; }
+.border-pantone-exuberant-orange { border-color: #FF5722; }
+.border-pantone-blue-violet { border-color: #4338CA; }
+.border-pantone-cloud-dancer { border-color: #F5F5F5; }
+.border-pantone-darkest-hour { border-color: #1A1A1A; }
+
+/* =================================================================== */
+/* REGISTRATION AND COMMUNITY APP STYLES */
+/* =================================================================== */
+
+/* Pixel font classes */
+.pixel-text, .pixel-text-lg, .pixel-text-xl {
   font-family: 'Courier New', monospace;
   font-weight: bold;
 }
@@ -32,7 +113,7 @@
   font-size: 1.25rem;
 }
 
-/* Color classes */
+/* Main color classes used across apps */
 .bg-cloud-dancer { background-color: #f5f5f5; }
 .bg-darkest-hour { background-color: #1a1a1a; }
 .bg-sun-glare { background-color: #ffd700; }
@@ -43,8 +124,10 @@
 
 .text-cloud-dancer { color: #f5f5f5; }
 .text-darkest-hour { color: #1a1a1a; }
+.text-white { color: #ffffff; }
 
 .border-darkest-hour { border-color: #1a1a1a; }
+.border-white { border-color: #ffffff; }
 
 /* Pixel borders */
 .pixel-border {
@@ -84,7 +167,242 @@
   background-color: #f5f5f5;
 }
 
+/* =================================================================== */
+/* MESSAGES APP STYLES */
+/* =================================================================== */
+
+.font-pixel {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+}
+
+/* =================================================================== */
+/* MATCHING APP STYLES */
+/* =================================================================== */
+
+.font-pixel {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+}
+
+/* =================================================================== */
+/* GLOBAL INTERACTIVE STYLES */
+/* =================================================================== */
+
+/* Button styles for all apps */
+button {
+  transition: all 0.1s ease;
+  image-rendering: pixelated;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+button:active {
+  transform: translateY(1px);
+  filter: brightness(0.9);
+}
+
+/* Input focus styles */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  filter: brightness(1.1);
+}
+
+input:focus-visible, 
+button:focus-visible, 
+select:focus-visible, 
+textarea:focus-visible {
+  outline: 4px solid #4338CA;
+  outline-offset: 2px;
+}
+
+/* Image rendering */
+img {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+svg {
+  shape-rendering: crispEdges;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* =================================================================== */
+/* SCROLLBAR STYLES */
+/* =================================================================== */
+
+/* Default scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4338ca;
+}
+
+/* Profile app scrollbar */
+.profile-app ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.profile-app ::-webkit-scrollbar-track {
+  background: #f5f5dc;
+}
+
+.profile-app ::-webkit-scrollbar-thumb {
+  background: #1a2b4a;
+  border-radius: 4px;
+}
+
+.profile-app ::-webkit-scrollbar-thumb:hover {
+  background: #081e30;
+}
+
+/* =================================================================== */
+/* UTILITY CLASSES */
+/* =================================================================== */
+
 /* Safe area */
 .safe-area-bottom {
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Font weight overrides */
+.font-black {
+  font-weight: 900 !important;
+}
+
+/* Text rendering optimizations */
+.text-rendering-pixel {
+  text-rendering: geometricPrecision;
+  font-feature-settings: normal;
+  font-kerning: none;
+}
+
+/* Link styling */
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Placeholder styling */
+input::placeholder, textarea::placeholder {
+  opacity: 0.7;
+}
+
+/* =================================================================== */
+/* RESPONSIVE AND ACCESSIBILITY */
+/* =================================================================== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  button, input, select, textarea {
+    border-width: 4px;
+    border-color: #1a1a1a;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =================================================================== */
+/* COMPONENT-SPECIFIC STYLES */
+/* =================================================================== */
+
+/* Product card effects */
+.product-card {
+  transition: all 0.2s ease;
+  image-rendering: pixelated;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  filter: brightness(1.05);
+}
+
+/* Chat message bubbles */
+.chat-message {
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Navigation highlighting */
+.nav-active {
+  background-color: #8a2be2;
+  color: #f5f5f5;
+}
+
+/* Loading animations */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* =================================================================== */
+/* MOBILE OPTIMIZATIONS */
+/* =================================================================== */
+
+@media (max-width: 640px) {
+  .pixel-text {
+    font-size: 0.875rem;
+  }
+  
+  .pixel-text-lg {
+    font-size: 1rem;
+  }
+  
+  .pixel-text-xl {
+    font-size: 1.125rem;
+  }
+  
+  button {
+    min-height: 44px; /* Touch target size */
+  }
+}
+
+/* =================================================================== */
+/* CUSTOM ANIMATIONS */
+/* =================================================================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import NavigationInterceptor from '../../NavigationInterceptor' // ADD THIS LINE
 import LoadingScreen from './components/LoadingScreen'
 import RegistrationScreen from './components/RegistrationScreen'
 import LoginScreen from './components/LoginScreen'
@@ -9,11 +10,26 @@ import BookmarksPage from './components/BookmarksPage'
 import NewPostModal from './components/NewPostModal'
 import { Post } from './types'
 import { generateMockPosts } from './data/mockPosts'
+import MessagesPage from './MessagePageReplacement'
+import { Post, BoardConfig } from './types'
+
+// ADD THIS INTERFACE
+interface AppProps {
+  navigationHandler?: {
+    goToAdd2Cart: () => void
+    goToCounselling: () => void
+    goToHome: () => void
+    goToMatching: () => void
+    goToProfile: () => void
+    goToMessages: () => void
+  }
+}
 
 type AuthState = 'loading' | 'login' | 'registration' | 'authenticated'
 type AppView = 'home' | 'board' | 'bookmarks'
 
-function App() {
+// MODIFY FUNCTION SIGNATURE
+function App(props: AppProps) {  // ADD props: AppProps
   const [authState, setAuthState] = useState<AuthState>('loading')
   const [currentView, setCurrentView] = useState<AppView>('home')
   const [currentBoardType, setCurrentBoardType] = useState<string>('batch')
@@ -42,14 +58,14 @@ function App() {
 
   const getBoardCategories = (boardType: string): string[] => {
     switch (boardType) {
-      case 'batch': return ['ACADEMIC', 'SOCIAL', 'STUDY GROUP', 'ASSIGNMENTS', 'EXAMS']
-      case 'major': return ['COMPUTER SCIENCE', 'BUSINESS', 'ENGINEERING', 'ARTS', 'SCIENCE']
+      case 'batch': return ['B21', 'B22', 'B23', 'B24', 'B25']
+      case 'major': return ['IT', 'BUSINESS', 'ENGINEERING', 'ARTS', 'SCIENCE']
       case 'fashion': return ['STREETWEAR', 'FORMAL', 'ACCESSORIES', 'BRANDS', 'TRENDS']
       case 'religion': return ['ISLAM', 'CHRISTIANITY', 'BUDDHISM', 'HINDUISM', 'INTERFAITH']
       case 'music': return ['POP', 'ROCK', 'JAZZ', 'CLASSICAL', 'LOCAL']
       case 'movie': return ['ACTION', 'COMEDY', 'DRAMA', 'HORROR', 'DOCUMENTARY']
-      case 'sports': return ['FOOTBALL', 'BASKETBALL', 'TENNIS', 'SWIMMING', 'FITNESS']
-      case 'mens': return ['LIFESTYLE', 'SPORTS', 'CAREER', 'RELATIONSHIPS', 'HEALTH']
+      case 'sports': return ['TRACK AND FIELD', 'LAND SPORT', 'WATER SPORT', 'GYM']
+      case 'mens': return ['LIFESTYLE', 'HYGIENE', 'CAREER', 'RELATIONSHIPS', 'HEALTH']
       case 'womens': return ['LIFESTYLE', 'BEAUTY', 'CAREER', 'RELATIONSHIPS', 'HEALTH']
       case 'announcements': return ['ACADEMIC', 'EVENTS', 'FACILITIES', 'GENERAL', 'URGENT']
       default: return []
@@ -90,25 +106,45 @@ function App() {
     setExternalView(null) // NEW: Reset external view when going back to home
   }
 
-  // NEW: External navigation handlers
+  // MODIFIED: External navigation handlers to use props.navigationHandler
   const handleNavigateToMatch = () => {
-    setExternalView('match')
+    if (props.navigationHandler?.goToMatching) {
+      props.navigationHandler.goToMatching()
+    } else {
+      setExternalView('match')
+    }
   }
 
   const handleNavigateToMessages = () => {
-    setExternalView('messages')
+    if (props.navigationHandler?.goToMessages) {
+      props.navigationHandler.goToMessages()
+    } else {
+      setExternalView('messages')
+    }
   }
 
   const handleNavigateToProfile = () => {
-    setExternalView('profile')
+    if (props.navigationHandler?.goToProfile) {
+      props.navigationHandler.goToProfile()
+    } else {
+      setExternalView('profile')
+    }
   }
 
   const handleNavigateToCart = () => {
-    setExternalView('cart')
+    if (props.navigationHandler?.goToAdd2Cart) {
+      props.navigationHandler.goToAdd2Cart()
+    } else {
+      setExternalView('cart')
+    }
   }
 
   const handleNavigateToCounseling = () => {
-    setExternalView('counseling')
+    if (props.navigationHandler?.goToCounselling) {
+      props.navigationHandler.goToCounselling()
+    } else {
+      setExternalView('counseling')
+    }
   }
 
   // App navigation handlers
@@ -306,6 +342,9 @@ function App() {
   // Main app - authenticated
   return (
     <div className="min-h-screen bg-cloud-dancer">
+      {/* ADD NavigationInterceptor HERE */}
+      <NavigationInterceptor navigationHandler={props.navigationHandler} />
+      
       {/* EXTERNAL COMPONENTS - Render when external view is set */}
       {externalView === 'match' && (
         <iframe 
